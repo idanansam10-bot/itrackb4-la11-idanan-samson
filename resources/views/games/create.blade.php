@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Add Video Game')
@@ -11,7 +12,6 @@
 
         <div class="mb-3">
             <label for="title">Game Title</label>
-
             <input
                 type="text"
                 name="title"
@@ -19,7 +19,6 @@
                 class="form-control"
                 value="{{ old('title') }}"
             >
-
             @error('title')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -27,43 +26,44 @@
 
         <div class="mb-3">
             <label for="developer">Developer</label>
-
             <select name="developer" id="developer" class="form-control">
                 <option value="">Select Developer</option>
-                <option value="Mojang Studios" @selected(old('developer') === 'Mojang Studios')>Mojang Studios</option>
-                <option value="Riot Games" @selected(old('developer') === 'Riot Games')>Riot Games</option>
-                <option value="HoYoverse" @selected(old('developer') === 'HoYoverse')>HoYoverse</option>
-                <option value="Moonton" @selected(old('developer') === 'Moonton')>Moonton</option>
-                <option value="ConcernedApe" @selected(old('developer') === 'ConcernedApe')>ConcernedApe</option>
-                <option value="Rockstar Games" @selected(old('developer') === 'Rockstar Games')>Rockstar Games</option>
+                @foreach ([
+                    'Mojang Studios',
+                    'Riot Games',
+                    'HoYoverse',
+                    'Moonton',
+                    'ConcernedApe',
+                    'Rockstar Games'
+                ] as $dev)
+                    <option value="{{ $dev }}" @selected(old('developer') === $dev)>
+                        {{ $dev }}
+                    </option>
+                @endforeach
             </select>
-
             @error('developer')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="mb-3">
-            <label for="genre">Genre</label>
-
-            <select name="genre" id="genre" class="form-control">
+            <label for="genre_id">Genre</label>
+            <select name="genre_id" id="genre_id" class="form-control">
                 <option value="">Select Genre</option>
-                <option value="Sandbox" @selected(old('genre') === 'Sandbox')>Sandbox</option>
-                <option value="Shooter" @selected(old('genre') === 'Shooter')>Shooter</option>
-                <option value="RPG" @selected(old('genre') === 'RPG')>RPG</option>
-                <option value="MOBA" @selected(old('genre') === 'MOBA')>MOBA</option>
-                <option value="Simulation" @selected(old('genre') === 'Simulation')>Simulation</option>
-                <option value="Action" @selected(old('genre') === 'Action')>Action</option>
+                @foreach ($genres as $genre)
+                    <option value="{{ $genre->id }}"
+                        @selected(old('genre_id') == $genre->id)>
+                        {{ $genre->name }}
+                    </option>
+                @endforeach
             </select>
-
-            @error('genre')
+            @error('genre_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="mb-3">
             <label for="year">Year</label>
-
             <input
                 type="number"
                 name="year"
@@ -71,7 +71,6 @@
                 class="form-control"
                 value="{{ old('year') }}"
             >
-
             @error('year')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
