@@ -9,7 +9,7 @@
     <p><strong>ID:</strong> {{ $item['id'] }}</p>
     <p><strong>Game:</strong> {{ $item['title'] }}</p>
     <p><strong>Developer:</strong> {{ $item['developer'] }}</p>
-    <p><strong>Genre:</strong> {{ $item['genre'] }}</p>
+    <p><strong>Genre:</strong> {{ $item->genre->name }}</p>
     <p><strong>Year:</strong> {{ $item['year'] }}</p>
 
     <p>Created by: Samson Idanan Jr.</p>

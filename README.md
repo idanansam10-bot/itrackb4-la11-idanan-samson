@@ -1,17 +1,19 @@
-# ITRACKB4 - LA10: Your Own Lookup Table
+# My Video Game Collection
 
-## Part G – Reflection Questions
+Created by: Samson Idanan Jr.
 
-### G1. Which column did you turn into a table, and why that one and not another?
+[Video Games](http://127.0.0.1:8000/games)
 
-I turned the `genre` column into a separate `genres` table because video games can share the same genre, such as RPG, MOBA, and Shooter. Creating a lookup table avoids repeatedly storing genre names in the `videogames` table and helps maintain consistent genre records. I chose this column because it contains repeated category values that can be managed more efficiently through a relationship.
+## Part G — Reflection Questions
 
-### G2. What number did Screenshot 6 show, and why exactly that number?
+### 1. Why does route model binding require the model parameter name to match the route parameter?
 
-Screenshot 6 showed **[INSERT YOUR SCREENSHOT 6 QUERY COUNT HERE] queries**. This number includes one query to retrieve all video games and one additional query for each game's genre because the relationship was loaded separately for every record. This demonstrates the N+1 query problem, which was reduced by using eager loading with `with('genre')`.
+Route model binding uses the route parameter to identify which model record should be retrieved. The parameter name in the controller must match the route parameter so Laravel can correctly inject the model. If the names do not match, the model binding may not work as expected.
 
-### G3. Your belongsTo method is named in singular. What would break if you made it plural?
+### 2. Why does clicking a Delete link not delete a record?
 
-The `belongsTo` relationship method is named `genre` in singular because each video game belongs to only one genre. If I named it `genres` instead, the code that accesses `$item->genre` and the eager loading call `with('genre')` would no longer match the relationship method name. This could cause errors when retrieving the related genre.
+A normal HTML link sends a GET request, which is used to access a page. The destroy route expects a DELETE request to remove a record. Therefore, a Delete link may open the game's detail page instead of deleting it. A form with `@method('DELETE')` is needed to send the correct request.
 
-Samson Idanan Jr.
+### 3. Why does the edit form use `old()` with a second argument?
+
+The second argument provides the existing value from the database when the edit form is first displayed. If validation fails, `old()` restores the values previously entered by the user. This allows the form to retain submitted values while still showing the original record values when there is no previous input.
